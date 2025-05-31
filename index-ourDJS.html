@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Cutters Choice DJs</title>
 
+  <!-- Main stylesheet (includes header-banner, grid, card, etc.) -->
+  <link rel="stylesheet" href="style.css?v=1748691419259">
+
   <!-- Bebas Neue font -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
-    rel="stylesheet"
-  >
-  <!-- FontAwesome (for the social icons) -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <!-- FontAwesome (for social icons) -->
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -38,81 +38,157 @@
       line-height: 1.4;
     }
 
-    /* ─── HEADER (BLACK BANNER WITH LOGOS + TITLE) ────────────────────────── */
-    header {
+    /* ─── HEADER (like main page’s header-banner) ───────────────────────── */
+    header.header-banner {
       position: relative;
-      background: url('/images/bricks.png') center/cover no-repeat;
-      border-bottom: 5px solid var(--brand-teal);
-      padding: 0.8rem 0;
-      text-align: center;
-      overflow: visible;
+      height: var(--gif-height, 270px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      overflow: hidden;
+      background: #000; /* fallback if GIFs not loaded */
     }
-    header img.logo {
+    /* Right-moving GIF container */
+    .header-gif-right {
       position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 130px;
+      top: 0;
+      left: 50%;
+      height: var(--gif-height, 270px);
+      width: var(--gif-width, 12%);
+      opacity: var(--gif-opacity, 1.6);
+      z-index: 0;
+      animation: slideRightToLeft var(--gif-speed, 12s) linear infinite;
+      background-size: cover;
+    }
+    /* Left-moving GIF container */
+    .header-gif-left {
+      position: absolute;
+      top: 0;
+      right: 50%;
+      height: var(--gif-height, 270px);
+      width: var(--gif-width, 12%);
+      opacity: var(--gif-opacity, 1.6);
+      z-index: 0;
+      animation: slideLeftToRight var(--gif-speed, 12s) linear infinite;
+      background-size: cover;
+    }
+    @keyframes slideRightToLeft {
+      0%   { transform: translateX(100vw); }
+      100% { transform: translateX(-100vw); }
+    }
+    @keyframes slideLeftToRight {
+      0%   { transform: translateX(-100vw); }
+      100% { transform: translateX(100vw); }
+    }
+    /* Dark overlay on header GIFs */
+    header.header-banner::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 0;
+    }
+    header .logo-container,
+    header .title {
+      position: relative;
       z-index: 1;
     }
-    header img.left  { left: 1rem;  }
-    header img.right { right: 1rem; }
-    header h1 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 6rem;
-      color: #fff;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      line-height: 1;
-      position: relative;
-      z-index: 2;
+    header .logo {
+      height: 180px;
+      margin-bottom: 0.3rem;
+      margin-left: 0.7rem;
     }
-
-    /* ─── NAVIGATION BAR (ONE-THIRD-EACH, LARGER FONT) ──────────────────── */
-    #main-nav {
-      display: flex;
-      background: var(--brand-teal);
-      border-bottom: 4px solid #fff;
-      /* Slightly taller so text is vertically centered */
-      padding: 0.75rem 1rem;
-    }
-    /* Each .nav-item gets exactly one-third of the width */
-    #main-nav .nav-item {
-      flex: 1;
-    }
-    /* Left third: OUR STORY (left-aligned) */
-    #main-nav .nav-left {
-      text-align: left;
-      padding-left: 1rem;
-    }
-    /* Center third: HOME (centered) */
-    #main-nav .nav-center {
+    header .title {
+      flex: 1 1 auto;
       text-align: center;
     }
-    /* Right third: MERCH + icons (right-aligned) */
-    #main-nav .nav-right {
-      text-align: right;
-      padding-right: 1rem;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    /* Style for all links in the nav */
-    #main-nav .nav-item a {
-      color: #fff;
-      text-decoration: none;
+    /* Title is already bumped to 6rem/8rem above */
+    header .title h1 {
+      font-size: 6rem;
+      margin: 0;
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.5rem;       /* bigger than before */
-      letter-spacing: 1px;
-      line-height: 1;          /* ensures proper vertical centering */
-    }
-    /* Slightly smaller icons so they’re in proportion */
-    #main-nav .social-icon {
-      font-size: 1.25rem;
+      color: #fff;
+      text-transform: uppercase;
       line-height: 1;
     }
+    @media (min-width: 900px) {
+      header .title h1 {
+        font-size: 8rem;
+      }
+    }
+    header .title .tagline {
+      font-size: 1.2rem;
+      color: var(--brand-teal);
+      margin-top: 0;
+    }
 
-    /* ─── GRID BREAKPOINTS ─────────────────────────────────────────────────── */
+    /* ─── NAVIGATION BAR (shorter, black borders) ─────────────────────────── */
+    #main-nav {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      width: 99.5% !important;
+      padding: 0.15rem 0.65rem !important;    /* reduced vertical padding */
+      margin: 0 !important;
+      box-sizing: border-box !important;
+      background-color: var(--brand-teal) !important;
+      border-top: 2px solid #000 !important;   /* black top border */
+      border-bottom: 2px solid #000 !important;/* black bottom border */
+      position: relative !important;
+      z-index: 1000 !important;
+    }
+    #main-nav .nav-item {
+      flex: 1 !important;
+    }
+    #main-nav .nav-left {
+      text-align: left !important;
+    }
+    #main-nav .nav-center {
+      text-align: center !important;
+    }
+    #main-nav .nav-right {
+      display: flex !important;
+      justify-content: flex-end !important;
+      align-items: center !important;
+      text-align: right !important;
+      flex: 1 !important;
+    }
+    #main-nav a {
+      color: #fff !important;
+      font-family: 'Bebas Neue', sans-serif !important;
+      font-size: 2rem !important;
+      text-transform: uppercase !important;
+      text-decoration: none !important;
+      margin: 0 0.5rem !important;
+    }
+    #main-nav .social-icon {
+      margin-left: 0.5rem !important;
+      font-size: 1.2rem !important;
+      vertical-align: middle !important;
+      color: #fff !important;
+    }
+    @media (max-width: 768px) {
+      #main-nav {
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        flex-wrap: nowrap !important;
+        padding: 0.1rem 0.5rem !important;  /* shrink mobile padding slightly */
+      }
+      #main-nav .nav-item {
+        flex: 1 !important;
+        text-align: center !important;
+        margin: 0 !important;
+      }
+      #main-nav a {
+        font-size: 1rem !important;
+        margin: 0 0.25rem !important;
+      }
+      #main-nav .social-icon {
+        display: none !important;
+      }
+    }
+
+    /* ─── GRID BREAKPOINTS & CARD STYLES (unchanged) ───────────────────────── */
     #artists-container {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
@@ -125,8 +201,6 @@
         grid-template-columns: repeat(4, 1fr) !important;
       }
     }
-
-    /* ─── CARD STYLES ──────────────────────────────────────────────────────── */
     .card {
       border: 2px solid var(--brand-teal);
       background: var(--bg-dark);
@@ -169,25 +243,17 @@
       line-height: 1.2;
       margin: 0;
     }
-
-    /* ─── MOBILE OVERRIDES (≤600px) ─────────────────────────────────────── */
     @media (max-width: 600px) {
-      /* tighten header padding */
-      header {
+      header.header-banner {
         padding: 0.4rem 0;
       }
-      /* shrink title and ensure it’s above logos */
-      header h1 {
+      header .title h1 {
         font-size: 1.5rem !important;
         margin: 0.5rem 0 !important;
-        position: relative !important;
-        z-index: 2 !important;
       }
-      /* hide left logo */
       header img.left {
         display: none !important;
       }
-      /* push right logo below title */
       header img.right {
         position: static !important;
         transform: none !important;
@@ -196,19 +262,15 @@
         width: 60px !important;
         z-index: 1 !important;
       }
-
-      /* NAV: reduce font-size slightly on very small screens */
       #main-nav {
         padding: 0.5rem 0.75rem;
       }
-      #main-nav .nav-item a {
-        font-size: 1.2rem;
+      #main-nav a {
+        font-size: 1.2rem !important;
       }
       #main-nav .social-icon {
-        font-size: 1rem;
+        font-size: 1rem !important;
       }
-
-      /* grid tweaks for cards */
       #artists-container {
         grid-template-columns: repeat(2, 1fr) !important;
         gap: 0.5rem;
@@ -229,7 +291,6 @@
       }
     }
 
-    /* ─── ERROR MESSAGE ────────────────────────────────────────────────────── */
     .error {
       text-align: center;
       color: #f55;
@@ -239,14 +300,25 @@
 </head>
 
 <body>
-  <!-- ─── HEADER (BLACK BANNER WITH LOGOS + TITLE) ────────────────────────── -->
-  <header>
-    <img src="/images/logo.png" alt="Logo" class="logo left">
-    <h1>Cutters Choice DJs</h1>
-    <img src="/images/logo.png" alt="Logo" class="logo right">
+  <!-- ─── HEADER (mirrors main page header-banner) ───────────────────────── -->
+  <header class="header-banner">
+    <div class="header-gif-right"></div>
+    <div class="header-gif-left"></div>
+
+    <div class="logo-container">
+      <img class="logo" src="/images/logo.png" alt="Logo" loading="lazy">
+    </div>
+
+    <div class="title">
+      <h1>Cutters Choice DJs</h1>
+    </div>
+
+    <div class="logo-container">
+      <img class="logo" src="/images/logo.png" alt="Logo" loading="lazy">
+    </div>
   </header>
 
-  <!-- ─── NAVIGATION BAR (THREE EQUAL SECTIONS, LARGE FONT) ──────────────── -->
+  <!-- ─── NAV (shorter + black top/bottom borders) ─────────────────────────── -->
   <nav id="main-nav">
     <div class="nav-item nav-left">
       <a href="our-story.html">OUR STORY</a>
