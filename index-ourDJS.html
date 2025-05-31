@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Cutters Choice DJs</title>
 
-  <!-- Main stylesheet (includes header-banner, grid, card, etc.) -->
+  <!-- Main stylesheet (includes grid, card, and global resets) -->
   <link rel="stylesheet" href="style.css?v=1748691419259">
 
   <!-- Bebas Neue font -->
@@ -31,84 +31,40 @@
       padding: 0;
       box-sizing: border-box;
     }
-    body {
+    html, body {
+      width: 100%;
+      height: 100%;
       background: var(--bg-dark);
       color: var(--text-light);
       font-family: Arial, sans-serif;
       line-height: 1.4;
     }
 
-    /* ─── HEADER (like main page’s header-banner) ───────────────────────── */
+    /* ─── HEADER (simplified: black background, centered logos + title) ───── */
     header.header-banner {
-      position: relative;
-      height: var(--gif-height, 270px);
+      background: #000;
+      padding: 1rem 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      overflow: hidden;
-      background: #000; /* fallback if GIFs not loaded */
     }
-    /* Right-moving GIF container */
-    .header-gif-right {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      height: var(--gif-height, 270px);
-      width: var(--gif-width, 12%);
-      opacity: var(--gif-opacity, 1.6);
-      z-index: 0;
-      animation: slideRightToLeft var(--gif-speed, 12s) linear infinite;
-      background-size: cover;
+    header .logo-container {
+      flex: 0 0 auto;
     }
-    /* Left-moving GIF container */
-    .header-gif-left {
-      position: absolute;
-      top: 0;
-      right: 50%;
-      height: var(--gif-height, 270px);
-      width: var(--gif-width, 12%);
-      opacity: var(--gif-opacity, 1.6);
-      z-index: 0;
-      animation: slideLeftToRight var(--gif-speed, 12s) linear infinite;
-      background-size: cover;
-    }
-    @keyframes slideRightToLeft {
-      0%   { transform: translateX(100vw); }
-      100% { transform: translateX(-100vw); }
-    }
-    @keyframes slideLeftToRight {
-      0%   { transform: translateX(-100vw); }
-      100% { transform: translateX(100vw); }
-    }
-    /* Dark overlay on header GIFs */
-    header.header-banner::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-color: rgba(0, 0, 0, 0.4);
-      z-index: 0;
-    }
-    header .logo-container,
-    header .title {
-      position: relative;
-      z-index: 1;
-    }
-    header .logo {
+    header .logo-container img {
       height: 180px;
-      margin-bottom: 0.3rem;
-      margin-left: 0.7rem;
+      width: auto;
     }
     header .title {
       flex: 1 1 auto;
       text-align: center;
     }
-    /* Enlarged title */
     header .title h1 {
-      font-size: 6rem;
-      margin: 0;
       font-family: 'Bebas Neue', sans-serif;
+      font-size: 6rem;
       color: #fff;
       text-transform: uppercase;
+      margin: 0;
       line-height: 1;
     }
     @media (min-width: 900px) {
@@ -119,10 +75,25 @@
     header .title .tagline {
       font-size: 1.2rem;
       color: var(--brand-teal);
-      margin-top: 0;
+      margin-top: 0.25rem;
+    }
+    @media (max-width: 600px) {
+      header.header-banner {
+        padding: 0.5rem 0;
+      }
+      header .logo-container img {
+        height: 100px !important;
+      }
+      header .title h1 {
+        font-size: 1.5rem !important;
+        margin: 0.5rem 0;
+      }
+      header .title .tagline {
+        font-size: 1rem !important;
+      }
     }
 
-    /* ─── THIN TEAL LINE ABOVE NAV ─────────────────────────────────────────── */
+    /* ─── THIN TEAL LINES ─────────────────────────────────────────────────── */
     .thin-teal-line {
       height: 2px;
       background-color: var(--brand-teal);
@@ -135,13 +106,8 @@
       justify-content: space-between !important;
       align-items: center !important;
       width: 100% !important;
-      padding: 0.15rem 0.65rem !important;    /* reduced vertical padding */
-      margin: 0 !important;
-      box-sizing: border-box !important;
+      padding: 0.15rem 1rem !important; /* reduced vertical padding */
       background-color: var(--brand-teal) !important;
-      /* Remove black border, since we’re adding thin teal lines outside */
-      border-top: none !important;
-      border-bottom: none !important;
       position: relative !important;
       z-index: 1000 !important;
     }
@@ -150,6 +116,7 @@
     }
     #main-nav .nav-left {
       text-align: left !important;
+      padding-left: 1rem;
     }
     #main-nav .nav-center {
       text-align: center !important;
@@ -159,7 +126,8 @@
       justify-content: flex-end !important;
       align-items: center !important;
       text-align: right !important;
-      flex: 1 !important;
+      padding-right: 1rem;
+      gap: 0.5rem;
     }
     #main-nav a {
       color: #fff !important;
@@ -170,17 +138,13 @@
       margin: 0 0.5rem !important;
     }
     #main-nav .social-icon {
-      margin-left: 0.5rem !important;
       font-size: 1.2rem !important;
-      vertical-align: middle !important;
       color: #fff !important;
+      vertical-align: middle !important;
     }
     @media (max-width: 768px) {
       #main-nav {
-        flex-direction: row !important;
-        justify-content: space-between !important;
-        flex-wrap: nowrap !important;
-        padding: 0.1rem 0.5rem !important;  /* shrink mobile padding slightly */
+        padding: 0.1rem 0.5rem !important;
       }
       #main-nav .nav-item {
         flex: 1 !important;
@@ -252,33 +216,6 @@
       margin: 0;
     }
     @media (max-width: 600px) {
-      header.header-banner {
-        padding: 0.4rem 0;
-      }
-      header .title h1 {
-        font-size: 1.5rem !important;
-        margin: 0.5rem 0 !important;
-      }
-      header img.left {
-        display: none !important;
-      }
-      header img.right {
-        position: static !important;
-        transform: none !important;
-        display: block !important;
-        margin: 0 auto 0.5rem !important;
-        width: 60px !important;
-        z-index: 1 !important;
-      }
-      #main-nav {
-        padding: 0.5rem 0.75rem;
-      }
-      #main-nav a {
-        font-size: 1.2rem !important;
-      }
-      #main-nav .social-icon {
-        font-size: 1rem !important;
-      }
       #artists-container {
         grid-template-columns: repeat(2, 1fr) !important;
         gap: 0.5rem;
@@ -308,19 +245,15 @@
 </head>
 
 <body>
-  <!-- ─── HEADER (mirrors main page header-banner) ───────────────────────── -->
+  <!-- ─── HEADER (no animated GIFs, black background) ─────────────────────── -->
   <header class="header-banner">
-    <div class="header-gif-right"></div>
-    <div class="header-gif-left"></div>
-
     <div class="logo-container">
       <img class="logo" src="/images/logo.png" alt="Logo" loading="lazy">
     </div>
-
     <div class="title">
       <h1>Cutters Choice DJs</h1>
+      <p class="tagline">The home of relentless flavas and significant bangers!</p>
     </div>
-
     <div class="logo-container">
       <img class="logo" src="/images/logo.png" alt="Logo" loading="lazy">
     </div>
@@ -329,7 +262,7 @@
   <!-- ─── THIN TEAL LINE ABOVE NAV ───────────────────────────────────────── -->
   <div class="thin-teal-line"></div>
 
-  <!-- ─── NAV (with reduced height, no black borders now) ─────────────────── -->
+  <!-- ─── NAVIGATION BAR (extends full width) ────────────────────────────── -->
   <nav id="main-nav">
     <div class="nav-item nav-left">
       <a href="our-story.html">OUR STORY</a>
@@ -351,7 +284,7 @@
   <!-- ─── THIN TEAL LINE BELOW NAV ───────────────────────────────────────── -->
   <div class="thin-teal-line"></div>
 
-  <!--------------------------- MAIN CONTENT ----------------------------->
+  <!-- ─── MAIN CONTENT (ARTISTS GRID) ─────────────────────────────────────── -->
   <main>
     <div id="artists-container"></div>
     <p id="error" class="error" style="display:none;"></p>
@@ -440,9 +373,9 @@
         const { schedules = [] } = await res.json();
         console.log(`Schedules for ${artistId}:`, schedules);
 
-        const el = document.getElementById(`next-${artistId}`);
+        const el = document.getElementById(`next-${artist.id}`);
         if (!el) {
-          console.warn(`Couldn’t find element #next-${artistId} to write schedule.`);
+          console.warn(`Couldn’t find element #next-${artist.id} to write schedule.`);
           return;
         }
 
@@ -459,7 +392,7 @@
         }
       } catch (err) {
         console.error(`Error loading schedule for ${artistId}:`, err);
-        const el = document.getElementById(`next-${artistId}`);
+        const el = document.getElementById(`next-${artist.id}`);
         if (el) el.textContent = 'Error';
       }
     }
