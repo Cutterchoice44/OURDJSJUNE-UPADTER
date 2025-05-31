@@ -102,7 +102,7 @@
       flex: 1 1 auto;
       text-align: center;
     }
-    /* Title is already bumped to 6rem/8rem above */
+    /* Enlarged title */
     header .title h1 {
       font-size: 6rem;
       margin: 0;
@@ -122,18 +122,26 @@
       margin-top: 0;
     }
 
-    /* ─── NAVIGATION BAR (shorter, black borders) ─────────────────────────── */
+    /* ─── THIN TEAL LINE ABOVE NAV ─────────────────────────────────────────── */
+    .thin-teal-line {
+      height: 2px;
+      background-color: var(--brand-teal);
+      width: 100%;
+    }
+
+    /* ─── NAVIGATION BAR ─────────────────────────────────────────────────── */
     #main-nav {
       display: flex !important;
       justify-content: space-between !important;
       align-items: center !important;
-      width: 99.5% !important;
+      width: 100% !important;
       padding: 0.15rem 0.65rem !important;    /* reduced vertical padding */
       margin: 0 !important;
       box-sizing: border-box !important;
       background-color: var(--brand-teal) !important;
-      border-top: 2px solid #000 !important;   /* black top border */
-      border-bottom: 2px solid #000 !important;/* black bottom border */
+      /* Remove black border, since we’re adding thin teal lines outside */
+      border-top: none !important;
+      border-bottom: none !important;
       position: relative !important;
       z-index: 1000 !important;
     }
@@ -318,7 +326,10 @@
     </div>
   </header>
 
-  <!-- ─── NAV (shorter + black top/bottom borders) ─────────────────────────── -->
+  <!-- ─── THIN TEAL LINE ABOVE NAV ───────────────────────────────────────── -->
+  <div class="thin-teal-line"></div>
+
+  <!-- ─── NAV (with reduced height, no black borders now) ─────────────────── -->
   <nav id="main-nav">
     <div class="nav-item nav-left">
       <a href="our-story.html">OUR STORY</a>
@@ -336,6 +347,9 @@
       </a>
     </div>
   </nav>
+
+  <!-- ─── THIN TEAL LINE BELOW NAV ───────────────────────────────────────── -->
+  <div class="thin-teal-line"></div>
 
   <!--------------------------- MAIN CONTENT ----------------------------->
   <main>
