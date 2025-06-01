@@ -373,9 +373,9 @@
         const { schedules = [] } = await res.json();
         console.log(`Schedules for ${artistId}:`, schedules);
 
-        const el = document.getElementById(`next-${artist.id}`);
+        const el = document.getElementById(`next-${artistId}`);
         if (!el) {
-          console.warn(`Couldn’t find element #next-${artist.id} to write schedule.`);
+          console.warn(`Couldn’t find element #next-${artistId} to write schedule.`);
           return;
         }
 
@@ -392,7 +392,7 @@
         }
       } catch (err) {
         console.error(`Error loading schedule for ${artistId}:`, err);
-        const el = document.getElementById(`next-${artist.id}`);
+        const el = document.getElementById(`next-${artistId}`);
         if (el) el.textContent = 'Error';
       }
     }
